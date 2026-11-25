@@ -1,6 +1,12 @@
 # Flicks on Nextdoor: concept demo
 
-Clickable concept of the Nextdoor app with Flicks running in Nextdoor's current ad placements. Open "Explore Flicks" to jump to each one:
+Clickable concept of the Nextdoor app with Flicks inside AdZen's contextual ads and in Nextdoor's own ad placements. Open "Explore Flicks" to jump to each one.
+
+AdZen ads:
+- Text ads: a highlighted link after a keyword in a neighbor's post, marked "Ad". Hover (or tap on a phone) opens the Flick. West Elm, Starbucks, YETI, Casper
+- Comment ads: a sponsored reply that answers the post, with the Flick inside. Trek, UPPAbaby, Pizza Hut
+
+Nextdoor ad placements:
 
 1. Takeover, the first sponsored post in the Newsfeed (Lovesac)
 2. Video ad in the Newsfeed (Chevrolet Silverado)
@@ -11,9 +17,9 @@ Clickable concept of the Nextdoor app with Flicks running in Nextdoor's current 
 
 Nextdoor's own call-to-action button sits under every ad, so the Flicks' built-in buttons are hidden. Works on desktop (phone frame) and on a phone (full screen).
 
-Built by Flam for partner conversations. Not affiliated with or endorsed by Nextdoor or the advertisers shown.
+Built by Flam for partner conversations. Not affiliated with or endorsed by Nextdoor, AdZen or the advertisers shown.
 
-Advertisers: Lovesac, Chevrolet, BMO, BarkBox, GEICO, Little Caesars. Neighbors, posts, places and counts are invented. Photos via Unsplash.
+Advertisers: West Elm, Starbucks, YETI, Casper, Trek, UPPAbaby, Pizza Hut, Lovesac, Chevrolet, BMO, BarkBox, GEICO, Little Caesars. Neighbors, posts, places and counts are invented. Photos via Unsplash.
 
 ## Testing
 

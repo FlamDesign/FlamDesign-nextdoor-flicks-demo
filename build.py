@@ -11,8 +11,12 @@ HIDE = ('<script>(function(){var n=0;(function f(){var v=document.querySelector(
         'if(++n<240)setTimeout(f,250)})()})();</script>')
 B = {'lovesac': ('Lovesac', 'lovesac', ''), 'silverado': ('Chevrolet Silverado', 'chevrolet-silverado', HIDE),
      'bmo': ('BMO', 'bmo-bank-2', ''), 'barkbox': ('BarkBox', 'barkbox', ''), 'geico': ('GEICO', 'geico', ''),
-     'lc': ('Little Caesars', 'little-caesars', '')}
+     'lc': ('Little Caesars', 'little-caesars', ''), 'westelm': ('West Elm', 'west-elm', ''),
+     'starbucks': ('Starbucks', 'starbucks', ''), 'yeti': ('YETI', 'yeti', ''), 'casper': ('Casper', 'casper', ''),
+     'trek': ('Trek', 'trek', ''), 'uppababy': ('UPPAbaby', 'uppababy', ''), 'pizzahut': ('Pizza Hut', 'pizza-hut', '')}
+SIZE = {'starbucks': [700, 700]}
 br = {k: {'name': n, 'ar': 'square', 'bg': '#f2f2f2', 'tag': tag(sl) + ('\n' + x if x else '')} for k, (n, sl, x) in B.items()}
+for k, v in SIZE.items(): br[k]['size'] = v
 s = s.replace('/*BRANDS*/', json.dumps(br, ensure_ascii=False).replace('</', '<\\/'))
 open('index.html', 'w').write(s)
 print('index.html', len(s))

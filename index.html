@@ -126,6 +126,34 @@ html[data-os=android] .sb .isl{width:12px;height:12px;top:11px;margin-left:-6px;
 .lgb small{display:block;font-size:12px;color:var(--mute)}
 .lgb b{display:block;font-size:15px}
 /* end */
+/* AdZen text ads */
+.az{white-space:normal}
+.az u{text-decoration:none;color:#1d7f46;font-weight:600;border-bottom:1.5px dotted #1d7f46;cursor:pointer}
+.az sup{display:inline-block;vertical-align:1px;margin-left:4px;padding:0 4px;border:1px solid #b9c2bb;border-radius:4px;font:700 9.5px/14px -apple-system,system-ui,sans-serif;color:#6b6f6c;letter-spacing:.02em}
+.az.on u{background:#eaf5ee;border-bottom-style:solid}
+.azpop{position:absolute;z-index:58;width:272px;background:#fff;border-radius:14px;box-shadow:0 12px 36px rgba(0,0,0,.22),0 0 0 1px rgba(0,0,0,.06);overflow:hidden;opacity:0;transform:translateY(4px);transition:opacity .16s,transform .16s}
+.azpop.on{opacity:1;transform:none}
+.azpop[hidden]{display:none}
+.azpop .h{display:flex;align-items:center;gap:8px;padding:9px 12px;font-size:13px}
+.azpop .h .lg{width:26px;height:26px;font-size:11px}
+.azpop .h b{flex:1;font-size:13.5px}
+.azpop .h span{font-size:11px;color:var(--mute)}
+.azpop .flick{width:100%;aspect-ratio:1/1;background:#f2f2f2}
+.azpop .f{display:flex;align-items:center;gap:10px;padding:10px 12px}
+.azpop .f .t{flex:1;min-width:0;font-size:13px;line-height:1.3;font-weight:600}
+.azpop .f .t small{display:block;font-weight:400;color:var(--mute);font-size:11.5px}
+.azpop .f .cta{height:32px;padding:0 13px;font-size:13px}
+.azpop .by{padding:0 12px 9px;font-size:10.5px;color:#9aa09b}
+/* AdZen comment ads */
+.cmt.adc .bub{flex:1;min-width:0;background:#f4f7f2;border:1px solid #e1e8df;border-radius:14px;padding:9px 11px 11px}
+.cmt.adc .lg{width:28px;height:28px;font-size:11px}
+.cmt.adc .nm{display:flex;align-items:center;gap:6px;font-size:13px}
+.cmt.adc .nm span{font-weight:400;color:var(--mute);font-size:12px}
+.cmt.adc p{margin:3px 0 8px;font-size:13.5px;line-height:1.38}
+.cmt.adc .flick{width:100%;aspect-ratio:1/1;border-radius:10px;background:#f2f2f2}
+.cmt.adc a{display:inline-block;margin-top:8px;font-size:13.5px;font-weight:700;color:#1d7f46;text-decoration:none;cursor:pointer}
+.cmt.adc .meta{display:flex;gap:14px;margin-top:6px;font-size:12px;color:var(--mute);font-weight:600}
+.cmt .meta2{display:flex;gap:14px;margin:4px 0 0 2px;font-size:12px;color:var(--mute);font-weight:600}
 .caught{padding:28px 16px 120px;text-align:center;color:var(--mute);font-size:14px;background:var(--bg)}
 .caught b{display:block;color:var(--ink);font-size:16px;margin-bottom:4px}
 /* For Sale & Free */
@@ -258,7 +286,7 @@ html[data-os=android] .hbar i{width:108px;height:4px;background:#555}
 <aside class="aside">
   <div class="k">Concept by Flam</div>
   <h1>Flicks on Nextdoor</h1>
-  <p>Every Nextdoor ad unit running a live Flick: neighbors switch between products, offers and coverage options right inside the post, and every choice comes back as a signal.</p>
+  <p>Flicks inside AdZen's contextual ads on Nextdoor, plus every Nextdoor ad unit. Hover a highlighted link to open its Flick, or switch products right inside a sponsored comment. Every choice comes back as a signal.</p>
   <ol id="aside-list"></ol>
   <small>Advertisers shown are real. Neighbors, posts and counts are invented. Not affiliated with or endorsed by Nextdoor.</small>
 </aside>
@@ -409,7 +437,22 @@ const ADV={
  bmo:{name:'BMO',dom:'bmo.com',col:'#0079c1',ini:'BMO',url:'https://www.bmo.com/en-us/main/personal/'},
  barkbox:{name:'BarkBox',dom:'barkbox.com',col:'#0a7bc4',ini:'B',url:'https://www.barkbox.com/'},
  geico:{name:'GEICO',dom:'geico.com',col:'#154ba0',ini:'G',url:'https://www.geico.com/auto-insurance/'},
- lc:{name:'Little Caesars',dom:'littlecaesars.com',col:'#f26722',ini:'LC',url:'https://littlecaesars.com/en-us/'}};
+ lc:{name:'Little Caesars',dom:'littlecaesars.com',col:'#f26722',ini:'LC',url:'https://littlecaesars.com/en-us/'},
+ westelm:{name:'West Elm',dom:'westelm.com',col:'#222',ini:'WE',url:'https://www.westelm.com/shop/furniture/living-room-furniture/'},
+ starbucks:{name:'Starbucks',dom:'starbucks.com',col:'#00704a',ini:'S',url:'https://www.starbucks.com/menu'},
+ yeti:{name:'YETI',dom:'yeti.com',col:'#1f2a36',ini:'Y',url:'https://www.yeti.com/drinkware.html'},
+ casper:{name:'Casper',dom:'casper.com',col:'#1b2b4b',ini:'C',url:'https://casper.com/mattresses/'},
+ trek:{name:'Trek',dom:'trekbikes.com',col:'#111',ini:'T',url:'https://www.trekbikes.com/us/en_US/bikes/kids-bikes/c/B507/'},
+ uppababy:{name:'UPPAbaby',dom:'uppababy.com',col:'#3a3a3a',ini:'U',url:'https://uppababy.com/strollers/'},
+ pizzahut:{name:'Pizza Hut',dom:'pizzahut.com',col:'#c8102e',ini:'PH',url:'https://www.pizzahut.com/menu'}};
+/* AdZen: contextual text ads after a keyword (a Flick opens on hover or tap) and comment ads that answer the post */
+const TAS={
+ 'ta-starbucks':{b:'starbucks',line:'Holiday drinks, ready when you are',sub:'starbucks.com',cta:'Order'},
+ 'ta-yeti':{b:'yeti',line:'Keeps coffee hot through the market',sub:'yeti.com',cta:'Shop'},
+ 'ta-casper':{b:'casper',line:'Sleep in, whatever the block is up to',sub:'casper.com',cta:'Shop'},
+ 'ta-westelm':{b:'westelm',line:'New pieces for a fresh living room',sub:'westelm.com',cta:'Shop'}};
+const TA=(id,txt)=>`<span class="az" data-ta="${id}" data-flow="${id}">(<u>${txt}</u><sup>Ad</sup>)</span>`;
+const CA=(slot,b,msg,link)=>`<div class="cmt adc" data-flow="${slot}">${logo(b)}<div class="bub"><div class="nm"><b>${ADV[b].name}</b><span>· Sponsored</span></div><p>${msg}</p>${F(slot,b).replace('class="media flick"','class="flick"')}<a onclick="native('${slot}')" data-t="${slot}-link">${link} →</a><div class="meta"><span>Like</span><span>Reply</span><span>Ads by AdZen</span></div></div></div>`;
 const logo=k=>{const a=ADV[k];return `<span class="lg" style="background:${a.col}"><img src="https://www.google.com/s2/favicons?domain=${a.dom}&sz=128" alt="" onerror="this.remove()" onload="if(this.naturalWidth<40)this.remove()">${a.ini.length>2?'<small style=font-size:11px>'+a.ini+'</small>':a.ini}</span>`};
 const acts=(n,c)=>`<div class="sum"><span class="rx"><span class="em"><i style="background:#fde3e7">❤️</i><i style="background:#fff3d6">👍</i><i style="background:#fff3d6">😂</i></span>${n}</span><span>${c}</span></div>
  <div class="acts"><button onclick="like(this)">${I.heart}Like</button><button>${I.cmt}Comment</button><button>${I.share}Share</button></div>`;
@@ -442,9 +485,15 @@ const FEED=[
   ${acts(97,'12 comments')}</article>`,
  `<article class="post">${head('grace','Grace Liu','Dolores Heights · 3 hr')}
   <span class="tagl ev">Event</span>
-  <div class="pt">Our street is doing a holiday lights walk again! Hot cocoa at the corner of 22nd and Noe, kids welcome, dogs very welcome.</div>
+  <div class="pt">Our street is doing a holiday lights walk again! Hot cocoa ${TA('ta-starbucks','holiday drinks at Starbucks')} at the corner of 22nd and Noe, kids welcome, dogs very welcome.</div>
   <div class="evc"><img src="${U(PH.lights)}" alt="Holiday lights on houses"><div class="b"><div class="d"><small>DEC</small>6</div><div class="t"><b>Holiday Lights Walk</b><span>Sat 5:30 PM · 22nd &amp; Noe · 64 going</span></div></div></div>
-  ${acts(121,'19 comments')}</article>`,
+  ${acts(121,'19 comments')}${cmt('ruth','Ruth Adler','We\'ll bring the kids! Is it ok to bring snacks to share?')}
+  ${CA('ca-pizzahut','pizzahut','Feeding the whole walk afterwards? A few pies to share go a long way on a cold night.','Order for the group at pizzahut.com')}</article>`,
+ `<article class="post">${head('nina','Nina Park','Glen Park · 3 hr')}
+  <span class="tagl">Recommendations</span>
+  <div class="pt">Our 7 year old wants to start biking to school in the spring. Which kids' bike actually handles our hills? Gears or no gears, hand brakes or coaster?</div>
+  ${acts(22,'17 comments')}${cmt('marcus','Marcus Bell','Hand brakes for sure on these hills. Ours learned on a 20 inch with a few gears.')}
+  ${CA('ca-trek','trek','On hills like Glen Park, a light 20 or 24 inch bike with hand brakes and a few gears makes the climb home much easier.','See kids\' bikes at trekbikes.com')}</article>`,
  /* 3 Carousel */
  `<article class="post ad" data-flow="carousel">${adHead('bmo')}
   <div class="pt">Planning a remodel, a new car or a little boat for the bay? Pick the loan that fits your plans.</div>
@@ -455,7 +504,7 @@ const FEED=[
   </div><div class="cdots" id="cdots"><i class="on"></i><i></i><i></i></div>
   ${acts(42,'6 comments')}</article>`,
  `<article class="post">${head('ruth','Ruth Adler','Noe Valley · 4 hr')}
-  <div class="pt">The Saturday farmers market had the best persimmons I've seen all year. Get there before 10 if you want the good ones!</div>
+  <div class="pt">The Saturday farmers market had the best persimmons I've seen all year. Get there before 10 if you want the good ones, and bring a thermos ${TA('ta-yeti','drinkware from YETI')} because it's cold at 8!</div>
   <img class="pimg" src="${U(PH.market)}" alt="Farmers market produce">
   ${acts(73,'9 comments')}</article>`,
  /* 4 Spotlight */
@@ -466,6 +515,14 @@ const FEED=[
    <div class="sb2"><div class="t"><b>Toys and treats picked for your dog</b><span>barkbox.com · monthly box</span></div><button class="cta" data-t="spot-cta" onclick="native('spot-barkbox')">Claim offer</button></div>
    <div class="recs"><span class="fc"><img src="${av('nina')}" alt=""><img src="${av('sam')}" alt=""><img src="${av('grace')}" alt=""></span>Nina, Sam and 41 neighbors follow BarkBox</div></div>
   ${acts(64,'11 comments')}</article>`,
+ `<article class="post">${head('tom','Tom Whitaker','Noe Valley · 4 hr')}
+  <span class="tagl">Recommendations</span>
+  <div class="pt">Baby #1 arrives in March! Which stroller actually handles the Noe Valley hills and still folds into a small trunk? Would love real-life opinions.</div>
+  ${acts(48,'26 comments')}${cmt('grace','Grace Liu','Congrats!! Get one with real suspension, the sidewalks on Sanchez are rough.')}
+  ${CA('ca-uppababy','uppababy','Congrats, Tom! For steep, bumpy sidewalks, all-wheel suspension and a one-hand fold make the biggest difference. Here are our picks for city parents.','Compare strollers at uppababy.com')}</article>`,
+ `<article class="post">${head('sam','Sam Rivera','Castro · 5 hr')}
+  <div class="pt">Leaf blowers at 7am on a Saturday?? Some of us are trying to sleep ${TA('ta-casper','mattresses from Casper')}. Can we all agree on 9am, neighbors? 😅</div>
+  ${acts(156,'64 comments')}${cmt('danny','Danny Okafor','Seconded. 9am is a very reasonable compromise.')}</article>`,
  `<article class="post">${head('danny','Danny Okafor','Castro · 5 hr')}
   <span class="tagl alert">Lost &amp; Found</span>
   <div class="pt">Found this good boy near Collingwood Park, no tag but very well behaved. He's safe at my place, DM me if he's yours!</div>
@@ -478,11 +535,13 @@ const FEED=[
   <div class="lgb"><div class="t"><small>geico.com</small><b>Get a fast quote</b></div><button class="cta" data-t="lead-cta" onclick="openLead()">Get quote</button></div>
   ${acts(38,'5 comments')}</article>`,
  `<article class="post">${head('elena','Elena Ortiz','Bernal Heights · 7 hr')}
-  <div class="pt">Finally finished our living room refresh. Huge thanks to everyone who recommended a painter last month!</div>
+  <div class="pt">Finally finished our living room refresh ${TA('ta-westelm','living room pieces from West Elm')}. Huge thanks to everyone who recommended a painter last month!</div>
   <img class="pimg" src="${U(PH.street)}" alt="Living room">
   ${acts(301,'22 comments')}</article>`,
  `<div class="caught"><b>You're all caught up</b>Check back later for new posts from Noe Valley</div>`];
 document.getElementById('feed').innerHTML=FEED.join('');
+const $app=document.getElementById('app');
+$app.insertAdjacentHTML('beforeend',Object.entries(TAS).map(([id,t])=>`<div class="azpop" id="pop-${id}" hidden onmouseenter="taKeep()" onmouseleave="taLater()"><div class="h">${logo(t.b)}<b>${ADV[t.b].name}</b><span>Ad</span></div><div class="flick" data-slot="${id}" data-brand="${t.b}" data-cta="native"></div><div class="f"><div class="t">${t.line}<small>${t.sub}</small></div><button class="cta" data-t="${id}-cta" onclick="native('${id}')">${t.cta}</button></div><div class="by">Ads by AdZen</div></div>`).join(''));
 
 /* For Sale & Free */
 const IT=[
@@ -513,7 +572,7 @@ function openSheet(id){$('scrim').classList.add('on');$(id).classList.add('on');
 function closeSheets(){const was=document.querySelector('.sheet.on');$('scrim').classList.remove('on');document.querySelectorAll('.sheet').forEach(s=>s.classList.remove('on'));if(was)dock($('tabs').offsetHeight+'px')}
 
 /* links: the Flick's own click-out URL for the variant on screen, otherwise the advertiser's product page */
-const SLOT_ADV={'tko-lovesac':'lovesac','vid-silverado':'chevy','car-bmo':'bmo','spot-barkbox':'barkbox','lead-geico':'geico','fsf-lc':'lc'};
+const SLOT_ADV={'ta-starbucks':'starbucks','ta-yeti':'yeti','ta-casper':'casper','ta-westelm':'westelm','ca-trek':'trek','ca-uppababy':'uppababy','ca-pizzahut':'pizzahut','tko-lovesac':'lovesac','vid-silverado':'chevy','car-bmo':'bmo','spot-barkbox':'barkbox','lead-geico':'geico','fsf-lc':'lc'};
 const clean=u=>{u=String(u||'').replace(/\$\{[^}]*\}/g,'');const i=u.search(/https?:\/\//);if(i<0)return '';u=u.slice(i);try{if(new URL(u).pathname.length<2)return ''}catch(e){return ''}return u};
 let pend=null;
 function openUrl(u){const w=window.open(u,'_blank');if(w){try{w.opener=null}catch(e){}return}leave(u)}
@@ -550,16 +609,48 @@ function leadDone(){const c=(document.querySelector('#segs .on')||{}).textConten
  requestAnimationFrame(()=>dock(($('lead').offsetHeight+6)+'px'))}
 if(FlicksKit.os==='android')$('clk').textContent='12:30';
 
+/* AdZen text ad popovers: hover on a pointer device, tap on touch */
+let taOpen=null,taT=null;
+function taPlace(id){const a=document.querySelector(`.az[data-ta="${id}"]`),p=$('pop-'+id);if(!a||!p)return;
+ const ar=$app.getBoundingClientRect(),z=ar.width/$app.clientWidth,rs=[...a.getClientRects()],r=rs[rs.length-1]||a.getBoundingClientRect();
+ const W=$app.clientWidth,H=$app.clientHeight-$('tabs').offsetHeight,ph=p.offsetHeight||360,pw=p.offsetWidth;
+ const x=(r.left-ar.left)/z,yb=(r.bottom-ar.top)/z,yt=(r.top-ar.top)/z;
+ p.style.left=Math.min(Math.max(10,x-30),W-pw-10)+'px';
+ const below=yb+8,above=yt-ph-8;p.style.top=(below+ph<=H-6||above<60?Math.min(below,H-ph-6):above)+'px'}
+function taShow(id){if(taOpen&&taOpen!==id)taHide(true);clearTimeout(taT);taOpen=id;const p=$('pop-'+id);p.hidden=false;
+ document.querySelector(`.az[data-ta="${id}"]`).classList.add('on');taPlace(id);requestAnimationFrame(()=>{taPlace(id);p.classList.add('on')});FlicksKit.scan()}
+function taHide(now){const id=taOpen;if(!id)return;const p=$('pop-'+id);p.classList.remove('on');document.querySelector(`.az[data-ta="${id}"]`).classList.remove('on');taOpen=null;if(now)p.hidden=true;else setTimeout(()=>{if(taOpen!==id)p.hidden=true},170)}
+function taKeep(){clearTimeout(taT)}
+function taLater(){clearTimeout(taT);taT=setTimeout(()=>taHide(),320)}
+const HOVER=matchMedia('(hover:hover) and (pointer:fine)').matches;
+document.querySelectorAll('.az').forEach(a=>{const id=a.dataset.ta;
+ if(HOVER){a.addEventListener('mouseenter',()=>{clearTimeout(taT);taT=setTimeout(()=>taShow(id),120)});a.addEventListener('mouseleave',taLater)}
+ a.addEventListener('click',e=>{e.stopPropagation();taOpen===id?taHide():taShow(id)})});
+document.addEventListener('pointerdown',e=>{if(taOpen&&!e.target.closest('.azpop')&&!e.target.closest('.az')&&!e.target.closest('[data-flicks-button]')&&!e.target.closest('.fk-menu'))taHide()},true);
+let taGo=null,lastScroll=0;
+['home-scroll','fsf-scroll'].forEach(i=>$(i).addEventListener('scroll',()=>{lastScroll=performance.now();if(taOpen&&!taGo)taHide(true)},{passive:true}));
+/* From Explore Flicks: bring the post into view with the link in the upper part of the feed, then open the ad as if hovered */
+function goTA(id){show('home');taHide(true);taGo=id;const sc=$('home-scroll'),a=document.querySelector(`.az[data-ta="${id}"]`);
+ const c=sc.getBoundingClientRect(),r=a.getBoundingClientRect(),z=c.height/sc.clientHeight||1;
+ sc.scrollTop=sc.scrollTop+(r.top-c.top)/z-sc.clientHeight*.2;
+ requestAnimationFrame(()=>{taShow(id);setTimeout(()=>{if(taGo===id)taGo=null},400)})}
 /* Flicks */
-const BR={"lovesac": {"name": "Lovesac", "ar": "square", "bg": "#f2f2f2", "tag": "<!doctype html>\n<meta charset=utf-8>\n<meta name=ad.orientation content=portrait,landscape>\n<script>var ExitApi=window.ExitApi||{exit:function(){}};var clickTag=(function(){try{var s=(location.search||'')+'&'+((location.hash||'').replace(/^#/,''));var m=/[?&]clickTag=([^&]*)/.exec(s);return m?decodeURIComponent(m[1]):'';}catch(e){return '';}})();<\/script>\n<script>window.AD_CONFIG=window.AD_CONFIG||{};window.AD_CONFIG.dsp=\"dv360_studio\";window.AD_CONFIG.publisherInfo={\"publisher_id\":\"${PUBLISHER_ID}\",\"adsxt_publisher_id\":\"${ADSXT_PUBLISHER_ID}\",\"universal_site_id\":\"${UNIVERSAL_SITE_ID}\",\"source_url\":\"${SOURCE_URL}\",\"source_url_enc\":\"${SOURCE_URL_ENC}\",\"adsxt_ad_system_domain\":\"${ADSXT_AD_SYSTEM_DOMAIN}\"};window.AD_CONFIG.clickTracker={\"mode\":\"exit\",\"template\":\"\"};<\/script>\n<script src=https://native-ads-dev.appless.workers.dev/pdv9zc/ad.js><\/script>"}, "silverado": {"name": "Chevrolet Silverado", "ar": "square", "bg": "#f2f2f2", "tag": "<!doctype html>\n<meta charset=utf-8>\n<meta name=ad.orientation content=portrait,landscape>\n<style>html,body{margin:0;height:100%}<\/style>\n<script>var ExitApi=window.ExitApi||{exit:function(){}};var clickTag=(function(){try{var s=(location.search||\"\")+\"&\"+((location.hash||\"\").replace(/^#/,\"\"));var m=/[?&]clickTag=([^&]*)/.exec(s);return m?decodeURIComponent(m[1]):\"\";}catch(e){return \"\";}})();<\/script>\n<script src=https://flicks.flamapp.live/s/6ae874418d020cc950761068/ad.js><\/script>\n<script>(function(){var n=0;(function f(){var v=document.querySelector(\"vertex-player\"),r=v&&v.shadowRoot;if(r&&!r.querySelector(\"style[data-nd]\")){var s=document.createElement(\"style\");s.setAttribute(\"data-nd\",\"\");s.textContent=\"button[data-node]:not([data-vertex-diff]){visibility:hidden!important;pointer-events:none!important}\";r.appendChild(s)}if(++n<240)setTimeout(f,250)})()})();<\/script>"}, "bmo": {"name": "BMO", "ar": "square", "bg": "#f2f2f2", "tag": "<!doctype html>\n<meta charset=utf-8>\n<meta name=ad.orientation content=portrait,landscape>\n<style>html,body{margin:0;height:100%}<\/style>\n<script>var ExitApi=window.ExitApi||{exit:function(){}};var clickTag=(function(){try{var s=(location.search||\"\")+\"&\"+((location.hash||\"\").replace(/^#/,\"\"));var m=/[?&]clickTag=([^&]*)/.exec(s);return m?decodeURIComponent(m[1]):\"\";}catch(e){return \"\";}})();<\/script>\n<script src=https://native-ads.appless.workers.dev/6aa351134954ac6f0dabda9f_u7x09f/ad.js><\/script>"}, "barkbox": {"name": "BarkBox", "ar": "square", "bg": "#f2f2f2", "tag": "<!doctype html>\n<meta charset=utf-8>\n<meta name=ad.orientation content=portrait,landscape>\n<script>var ExitApi=window.ExitApi||{exit:function(){}},clickTag=\"${CLICK_URL_UNESC}\";<\/script>\n<script src=https://native-ads-dev.appless.workers.dev/6a8e82a03252dba34b484fa9_zi294y/ad.js><\/script>"}, "geico": {"name": "GEICO", "ar": "square", "bg": "#f2f2f2", "tag": "<!doctype html>\n<meta charset=utf-8>\n<meta name=ad.orientation content=portrait,landscape>\n<script>var ExitApi=window.ExitApi||{exit:function(){}};var clickTag=(function(){try{var s=(location.search||'')+'&'+((location.hash||'').replace(/^#/,''));var m=/[?&]clickTag=([^&]*)/.exec(s);return m?decodeURIComponent(m[1]):'';}catch(e){return '';}})();<\/script>\n<script>window.AD_CONFIG=window.AD_CONFIG||{};window.AD_CONFIG.dsp=\"dv360_studio\";window.AD_CONFIG.publisherInfo={\"publisher_id\":\"${PUBLISHER_ID}\",\"adsxt_publisher_id\":\"${ADSXT_PUBLISHER_ID}\",\"universal_site_id\":\"${UNIVERSAL_SITE_ID}\",\"source_url\":\"${SOURCE_URL}\",\"source_url_enc\":\"${SOURCE_URL_ENC}\",\"adsxt_ad_system_domain\":\"${ADSXT_AD_SYSTEM_DOMAIN}\"};window.AD_CONFIG.clickTracker={\"mode\":\"exit\",\"template\":\"\"};<\/script>\n<script src=https://native-ads-dev.appless.workers.dev/g3rvuw/ad.js><\/script>"}, "lc": {"name": "Little Caesars", "ar": "square", "bg": "#f2f2f2", "tag": "<!doctype html>\n<meta charset=utf-8>\n<meta name=ad.orientation content=portrait,landscape>\n<script>var ExitApi=window.ExitApi||{exit:function(){}},clickTag=\"${CLICK_URL_UNESC}\";<\/script>\n<script>window.AD_CONFIG=window.AD_CONFIG||{};window.AD_CONFIG.dsp=\"dv360_studio\";window.AD_CONFIG.publisherInfo={\"publisher_id\":\"${PUBLISHER_ID}\",\"adsxt_publisher_id\":\"${ADSXT_PUBLISHER_ID}\",\"universal_site_id\":\"${UNIVERSAL_SITE_ID}\",\"source_url\":\"${SOURCE_URL}\",\"source_url_enc\":\"${SOURCE_URL_ENC}\",\"adsxt_ad_system_domain\":\"${ADSXT_AD_SYSTEM_DOMAIN}\"};window.AD_CONFIG.clickTracker={\"mode\":\"exit\",\"template\":\"\"};<\/script>\n<script src=https://native-ads-dev.appless.workers.dev/xlgqpx/ad.js><\/script>"}};
+const BR={"lovesac": {"name": "Lovesac", "ar": "square", "bg": "#f2f2f2", "tag": "<!doctype html>\n<meta charset=utf-8>\n<meta name=ad.orientation content=portrait,landscape>\n<script>var ExitApi=window.ExitApi||{exit:function(){}};var clickTag=(function(){try{var s=(location.search||'')+'&'+((location.hash||'').replace(/^#/,''));var m=/[?&]clickTag=([^&]*)/.exec(s);return m?decodeURIComponent(m[1]):'';}catch(e){return '';}})();<\/script>\n<script>window.AD_CONFIG=window.AD_CONFIG||{};window.AD_CONFIG.dsp=\"dv360_studio\";window.AD_CONFIG.publisherInfo={\"publisher_id\":\"${PUBLISHER_ID}\",\"adsxt_publisher_id\":\"${ADSXT_PUBLISHER_ID}\",\"universal_site_id\":\"${UNIVERSAL_SITE_ID}\",\"source_url\":\"${SOURCE_URL}\",\"source_url_enc\":\"${SOURCE_URL_ENC}\",\"adsxt_ad_system_domain\":\"${ADSXT_AD_SYSTEM_DOMAIN}\"};window.AD_CONFIG.clickTracker={\"mode\":\"exit\",\"template\":\"\"};<\/script>\n<script src=https://native-ads-dev.appless.workers.dev/pdv9zc/ad.js><\/script>"}, "silverado": {"name": "Chevrolet Silverado", "ar": "square", "bg": "#f2f2f2", "tag": "<!doctype html>\n<meta charset=utf-8>\n<meta name=ad.orientation content=portrait,landscape>\n<style>html,body{margin:0;height:100%}<\/style>\n<script>var ExitApi=window.ExitApi||{exit:function(){}};var clickTag=(function(){try{var s=(location.search||\"\")+\"&\"+((location.hash||\"\").replace(/^#/,\"\"));var m=/[?&]clickTag=([^&]*)/.exec(s);return m?decodeURIComponent(m[1]):\"\";}catch(e){return \"\";}})();<\/script>\n<script src=https://flicks.flamapp.live/s/6ae874418d020cc950761068/ad.js><\/script>\n<script>(function(){var n=0;(function f(){var v=document.querySelector(\"vertex-player\"),r=v&&v.shadowRoot;if(r&&!r.querySelector(\"style[data-nd]\")){var s=document.createElement(\"style\");s.setAttribute(\"data-nd\",\"\");s.textContent=\"button[data-node]:not([data-vertex-diff]){visibility:hidden!important;pointer-events:none!important}\";r.appendChild(s)}if(++n<240)setTimeout(f,250)})()})();<\/script>"}, "bmo": {"name": "BMO", "ar": "square", "bg": "#f2f2f2", "tag": "<!doctype html>\n<meta charset=utf-8>\n<meta name=ad.orientation content=portrait,landscape>\n<style>html,body{margin:0;height:100%}<\/style>\n<script>var ExitApi=window.ExitApi||{exit:function(){}};var clickTag=(function(){try{var s=(location.search||\"\")+\"&\"+((location.hash||\"\").replace(/^#/,\"\"));var m=/[?&]clickTag=([^&]*)/.exec(s);return m?decodeURIComponent(m[1]):\"\";}catch(e){return \"\";}})();<\/script>\n<script src=https://native-ads.appless.workers.dev/6aa351134954ac6f0dabda9f_u7x09f/ad.js><\/script>"}, "barkbox": {"name": "BarkBox", "ar": "square", "bg": "#f2f2f2", "tag": "<!doctype html>\n<meta charset=utf-8>\n<meta name=ad.orientation content=portrait,landscape>\n<script>var ExitApi=window.ExitApi||{exit:function(){}},clickTag=\"${CLICK_URL_UNESC}\";<\/script>\n<script src=https://native-ads-dev.appless.workers.dev/6a8e82a03252dba34b484fa9_zi294y/ad.js><\/script>"}, "geico": {"name": "GEICO", "ar": "square", "bg": "#f2f2f2", "tag": "<!doctype html>\n<meta charset=utf-8>\n<meta name=ad.orientation content=portrait,landscape>\n<script>var ExitApi=window.ExitApi||{exit:function(){}};var clickTag=(function(){try{var s=(location.search||'')+'&'+((location.hash||'').replace(/^#/,''));var m=/[?&]clickTag=([^&]*)/.exec(s);return m?decodeURIComponent(m[1]):'';}catch(e){return '';}})();<\/script>\n<script>window.AD_CONFIG=window.AD_CONFIG||{};window.AD_CONFIG.dsp=\"dv360_studio\";window.AD_CONFIG.publisherInfo={\"publisher_id\":\"${PUBLISHER_ID}\",\"adsxt_publisher_id\":\"${ADSXT_PUBLISHER_ID}\",\"universal_site_id\":\"${UNIVERSAL_SITE_ID}\",\"source_url\":\"${SOURCE_URL}\",\"source_url_enc\":\"${SOURCE_URL_ENC}\",\"adsxt_ad_system_domain\":\"${ADSXT_AD_SYSTEM_DOMAIN}\"};window.AD_CONFIG.clickTracker={\"mode\":\"exit\",\"template\":\"\"};<\/script>\n<script src=https://native-ads-dev.appless.workers.dev/g3rvuw/ad.js><\/script>"}, "lc": {"name": "Little Caesars", "ar": "square", "bg": "#f2f2f2", "tag": "<!doctype html>\n<meta charset=utf-8>\n<meta name=ad.orientation content=portrait,landscape>\n<script>var ExitApi=window.ExitApi||{exit:function(){}},clickTag=\"${CLICK_URL_UNESC}\";<\/script>\n<script>window.AD_CONFIG=window.AD_CONFIG||{};window.AD_CONFIG.dsp=\"dv360_studio\";window.AD_CONFIG.publisherInfo={\"publisher_id\":\"${PUBLISHER_ID}\",\"adsxt_publisher_id\":\"${ADSXT_PUBLISHER_ID}\",\"universal_site_id\":\"${UNIVERSAL_SITE_ID}\",\"source_url\":\"${SOURCE_URL}\",\"source_url_enc\":\"${SOURCE_URL_ENC}\",\"adsxt_ad_system_domain\":\"${ADSXT_AD_SYSTEM_DOMAIN}\"};window.AD_CONFIG.clickTracker={\"mode\":\"exit\",\"template\":\"\"};<\/script>\n<script src=https://native-ads-dev.appless.workers.dev/xlgqpx/ad.js><\/script>"}, "westelm": {"name": "West Elm", "ar": "square", "bg": "#f2f2f2", "tag": "<!doctype html>\n<meta charset=utf-8>\n<meta name=ad.orientation content=portrait,landscape>\n<style>html,body{margin:0;height:100%}<\/style>\n<script>var ExitApi=window.ExitApi||{exit:function(){}};var clickTag=(function(){try{var s=(location.search||\"\")+\"&\"+((location.hash||\"\").replace(/^#/,\"\"));var m=/[?&]clickTag=([^&]*)/.exec(s);return m?decodeURIComponent(m[1]):\"\";}catch(e){return \"\";}})();<\/script>\n<script src=https://native-ads-dev.appless.workers.dev/6a96c6969e74536944c4167f_lhsf01/ad.js><\/script>"}, "starbucks": {"name": "Starbucks", "ar": "square", "bg": "#f2f2f2", "tag": "<!doctype html>\n<meta charset=utf-8>\n<meta name=ad.orientation content=portrait,landscape>\n<style>html,body{margin:0;height:100%}<\/style>\n<script>var ExitApi=window.ExitApi||{exit:function(){}};var clickTag=(function(){try{var s=(location.search||\"\")+\"&\"+((location.hash||\"\").replace(/^#/,\"\"));var m=/[?&]clickTag=([^&]*)/.exec(s);return m?decodeURIComponent(m[1]):\"\";}catch(e){return \"\";}})();<\/script>\n<script src=https://native-ads-dev.appless.workers.dev/6a8f66223252dba34b48584f_cui6dx/ad.js><\/script>", "size": [700, 700]}, "yeti": {"name": "YETI", "ar": "square", "bg": "#f2f2f2", "tag": "<!doctype html>\n<meta charset=utf-8>\n<meta name=ad.orientation content=portrait,landscape>\n<style>html,body{margin:0;height:100%}<\/style>\n<script>var ExitApi=window.ExitApi||{exit:function(){}};var clickTag=(function(){try{var s=(location.search||\"\")+\"&\"+((location.hash||\"\").replace(/^#/,\"\"));var m=/[?&]clickTag=([^&]*)/.exec(s);return m?decodeURIComponent(m[1]):\"\";}catch(e){return \"\";}})();<\/script>\n<script src=https://native-ads-dev.appless.workers.dev/6a8e82a03252dba34b484fa9_a69vsl/ad.js><\/script>"}, "casper": {"name": "Casper", "ar": "square", "bg": "#f2f2f2", "tag": "<!doctype html>\n<meta charset=utf-8>\n<meta name=ad.orientation content=portrait,landscape>\n<style>html,body{margin:0;height:100%}<\/style>\n<script>var ExitApi=window.ExitApi||{exit:function(){}};var clickTag=(function(){try{var s=(location.search||\"\")+\"&\"+((location.hash||\"\").replace(/^#/,\"\"));var m=/[?&]clickTag=([^&]*)/.exec(s);return m?decodeURIComponent(m[1]):\"\";}catch(e){return \"\";}})();<\/script>\n<script src=https://native-ads-dev.appless.workers.dev/6a8ec6fd3252dba34b4854c5_ym3vjp/ad.js><\/script>"}, "trek": {"name": "Trek", "ar": "square", "bg": "#f2f2f2", "tag": "<!doctype html>\n<meta charset=utf-8>\n<meta name=ad.orientation content=portrait,landscape>\n<style>html,body{margin:0;height:100%}<\/style>\n<script>var ExitApi=window.ExitApi||{exit:function(){}};var clickTag=(function(){try{var s=(location.search||\"\")+\"&\"+((location.hash||\"\").replace(/^#/,\"\"));var m=/[?&]clickTag=([^&]*)/.exec(s);return m?decodeURIComponent(m[1]):\"\";}catch(e){return \"\";}})();<\/script>\n<script src=https://native-ads-dev.appless.workers.dev/6a96c6969e74536944c4167f_n5o88r/ad.js><\/script>"}, "uppababy": {"name": "UPPAbaby", "ar": "square", "bg": "#f2f2f2", "tag": "<!doctype html>\n<meta charset=utf-8>\n<meta name=ad.orientation content=portrait,landscape>\n<style>html,body{margin:0;height:100%}<\/style>\n<script>var ExitApi=window.ExitApi||{exit:function(){}};var clickTag=(function(){try{var s=(location.search||\"\")+\"&\"+((location.hash||\"\").replace(/^#/,\"\"));var m=/[?&]clickTag=([^&]*)/.exec(s);return m?decodeURIComponent(m[1]):\"\";}catch(e){return \"\";}})();<\/script>\n<script src=https://native-ads-dev.appless.workers.dev/6a8e82a03252dba34b484fa9_otfi91/ad.js><\/script>"}, "pizzahut": {"name": "Pizza Hut", "ar": "square", "bg": "#f2f2f2", "tag": "<!doctype html>\n<meta charset=utf-8>\n<meta name=ad.orientation content=portrait,landscape>\n<style>html,body{margin:0;height:100%}<\/style>\n<script>var ExitApi=window.ExitApi||{exit:function(){}};var clickTag=(function(){try{var s=(location.search||\"\")+\"&\"+((location.hash||\"\").replace(/^#/,\"\"));var m=/[?&]clickTag=([^&]*)/.exec(s);return m?decodeURIComponent(m[1]):\"\";}catch(e){return \"\";}})();<\/script>\n<script src=https://native-ads-dev.appless.workers.dev/6a329be6856fe702ab738008_yaau62/ad.js><\/script>"}};
 const top0=()=>{show('home');$('home-scroll').scrollTop=0};
-FlicksKit.init({root:'#app',maxLive:3,brands:BR,
+FlicksKit.init({root:'#app',maxLive:4,brands:BR,
  flows:[
-  {id:'takeover',label:'Takeover',slot:'tko-lovesac',go:top0,},
-  {id:'video',label:'Video ad in Newsfeed',slot:'vid-silverado',go(){show('home')}},
-  {id:'carousel',label:'Carousel ad',slot:'car-bmo',go(){show('home');$('car').scrollLeft=0}},
-  {id:'spotlight',label:'Spotlight ad',slot:'spot-barkbox',go(){show('home')}},
-  {id:'leadgen',label:'Lead gen ad',slot:'lead-geico',go(){show('home')},
+  {id:'ta-westelm',label:'AdZen text ad: West Elm',slot:'ta-westelm',go(){goTA('ta-westelm')},settle:300},
+  {id:'ta-starbucks',label:'AdZen text ad: Starbucks',slot:'ta-starbucks',go(){goTA('ta-starbucks')},settle:300},
+  {id:'ta-yeti',label:'AdZen text ad: YETI',slot:'ta-yeti',go(){goTA('ta-yeti')},settle:300},
+  {id:'ta-casper',label:'AdZen text ad: Casper',slot:'ta-casper',go(){goTA('ta-casper')},settle:300},
+  {id:'ca-trek',label:'AdZen comment ad: Trek',slot:'ca-trek',go(){show('home')}},
+  {id:'ca-uppababy',label:'AdZen comment ad: UPPAbaby',slot:'ca-uppababy',go(){show('home')}},
+  {id:'ca-pizzahut',label:'AdZen comment ad: Pizza Hut',slot:'ca-pizzahut',go(){show('home')}},
+  {id:'takeover',label:'Nextdoor Takeover',slot:'tko-lovesac',go:top0,},
+  {id:'video',label:'Nextdoor video ad',slot:'vid-silverado',go(){show('home')}},
+  {id:'carousel',label:'Nextdoor carousel ad',slot:'car-bmo',go(){show('home');$('car').scrollLeft=0}},
+  {id:'spotlight',label:'Nextdoor Spotlight ad',slot:'spot-barkbox',go(){show('home')}},
+  {id:'leadgen',label:'Nextdoor lead gen ad',slot:'lead-geico',go(){show('home')},
    steps:[{name:'Get quote opens the lead form',tap:'[data-t=lead-cta]',expect:'#lead.on'},{name:'Submit confirms',tap:'[data-t=lead-submit]',expect:'.done'},{name:'Back to feed closes the form',tap:'[data-t=lead-close]',gone:'#lead.on'}]},
   {id:'fsf',label:'For Sale & Free',slot:'fsf-lc',go(){show('fsf');$('fsf-scroll').scrollTop=0}}
  ],
