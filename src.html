@@ -1,0 +1,460 @@
+<!doctype html>
+<html lang="en"><head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover,maximum-scale=1">
+<meta name="robots" content="noindex">
+<meta name="theme-color" content="#ffffff">
+<title>Flicks on Nextdoor: concept demo</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%231d3d2c'/%3E%3Cpath d='M8 26V15l8-7 8 7v11h-5v-6h-6v6z' fill='%238ed500'/%3E%3C/svg%3E">
+<style>
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html,body{margin:0;height:100%;overflow:hidden;background:#e9ece8;font-family:-apple-system,BlinkMacSystemFont,"SF Pro Text","Helvetica Neue",Arial,sans-serif;color:#1a1a1a;-webkit-font-smoothing:antialiased}
+html[data-os=android] body{font-family:Roboto,"Helvetica Neue",Arial,sans-serif}
+button{font:inherit;color:inherit;background:none;border:0;padding:0;cursor:pointer}
+img{display:block}
+:root{--ink:#1a1a1a;--mute:#6b6f6c;--line:#e7e9e7;--bg:#f3f4f2;--green:#1d7f46;--green-d:#14613a;--lime:#8ed500;--forest:#1d3d2c;--chip:#f0f2ef}
+.stage{height:100dvh;display:flex;align-items:center;justify-content:center;overflow:clip;gap:56px}
+.phone{position:relative;width:390px;height:844px;transform-origin:center center;flex:none;border-radius:54px;background:#000;padding:11px;box-shadow:0 0 0 2px #2a2a2c,0 30px 70px rgba(0,0,0,.25)}
+html[data-os=android] .phone{border-radius:40px}
+#app{position:relative;width:100%;height:100%;overflow:hidden;border-radius:44px;background:#fff;display:flex;flex-direction:column;--fk-nav:84px;--fk-bg:rgba(29,61,44,.96);--fk-accent:#8ed500;--fk-font:-apple-system,BlinkMacSystemFont,"Helvetica Neue",Arial,sans-serif}
+html[data-os=android] #app{border-radius:30px}
+/* status bar (phone frame only) */
+.sb{flex:none;height:47px;background:#fff;display:flex;align-items:center;justify-content:space-between;padding:0 30px 0 34px;font:600 15px -apple-system,"SF Pro Text",system-ui;color:#000;position:relative;z-index:30}
+.sb .isl{position:absolute;left:50%;top:11px;width:122px;height:34px;margin-left:-61px;border-radius:20px;background:#000}
+.sb svg{display:block}.sb .r{display:flex;gap:6px;align-items:center}
+html[data-os=android] .sb{height:34px;padding:0 22px;font:500 14px Roboto,system-ui}
+html[data-os=android] .sb .isl{width:12px;height:12px;top:11px;margin-left:-6px;border-radius:50%}
+/* views */
+.views{position:relative;flex:1;min-height:0;overflow:hidden}
+.view{position:absolute;inset:0;display:none;flex-direction:column;background:#fff}
+.view.on{display:flex}
+.scroll{flex:1;overflow-y:auto;overflow-x:hidden;-webkit-overflow-scrolling:touch;overscroll-behavior:contain;background:var(--bg)}
+.scroll::-webkit-scrollbar{display:none}
+/* top bar */
+.top{flex:none;display:flex;align-items:center;gap:10px;height:52px;padding:0 14px 0 16px;background:#fff;border-bottom:1px solid var(--line)}
+.hood{display:flex;align-items:center;gap:8px;font-weight:700;font-size:19px;letter-spacing:-.2px;flex:1;min-width:0}
+.hood .mark{width:30px;height:30px;border-radius:9px;background:var(--forest);display:flex;align-items:center;justify-content:center;flex:none}
+.hood span{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.ib{width:38px;height:38px;border-radius:50%;display:flex;align-items:center;justify-content:center;position:relative;flex:none}
+.ib:active{background:var(--chip)}
+.ib .dot{position:absolute;top:3px;right:1px;min-width:14px;height:14px;padding:0 3px;border-radius:7px;font-size:9px!important;line-height:14px!important;background:#e5432e;color:#fff;font:700 10px/16px system-ui;text-align:center;border:2px solid #fff;box-sizing:content-box}
+.ttl{flex:1;font-weight:700;font-size:19px}
+/* composer + chips */
+.compose{display:flex;align-items:center;gap:10px;padding:12px 16px;background:#fff}
+.compose img{width:38px;height:38px;border-radius:50%;object-fit:cover}
+.compose .in{flex:1;height:40px;border-radius:20px;background:var(--chip);display:flex;align-items:center;padding:0 16px;color:var(--mute);font-size:15px}
+.chips{display:flex;gap:8px;padding:0 16px 12px;background:#fff;overflow-x:auto;scrollbar-width:none}
+.chips::-webkit-scrollbar{display:none}
+.chip{flex:none;height:34px;padding:0 14px;border-radius:17px;background:var(--chip);font-size:14px;font-weight:600;color:#3a3d3b;display:flex;align-items:center;gap:6px}
+.chip.on{background:var(--forest);color:#fff}
+/* posts */
+.post{background:#fff;margin-top:8px;padding-top:14px}
+.ph{display:flex;align-items:center;gap:10px;padding:0 16px}
+.av{width:40px;height:40px;border-radius:50%;object-fit:cover;flex:none;background:#dfe3df}
+.lg{width:40px;height:40px;border-radius:50%;flex:none;display:flex;align-items:center;justify-content:center;overflow:hidden;font-weight:800;font-size:15px;color:#fff;border:1px solid rgba(0,0,0,.06)}
+.lg img{width:100%;height:100%;object-fit:cover}
+.who{flex:1;min-width:0;line-height:1.25}
+.who b{display:block;font-size:15px;font-weight:700}
+.who span{font-size:13px;color:var(--mute)}
+.more{width:32px;height:32px;display:flex;align-items:center;justify-content:center;color:#666;flex:none}
+.tagl{display:inline-flex;align-items:center;gap:5px;margin:10px 16px 0;padding:3px 9px;border-radius:6px;font-size:12px;font-weight:700;background:#eef6e4;color:#2f6a12}
+.tagl.alert{background:#fdecea;color:#b3261e}
+.tagl.ev{background:#e9f0fb;color:#1f4d99}
+.pt{padding:10px 16px 0;font-size:15px;line-height:1.42;color:#222}
+.pt b{font-weight:700}
+.pimg{width:100%;margin-top:12px;aspect-ratio:4/3;object-fit:cover;background:#e5e8e4}
+.evc{margin:12px 16px 0;border:1px solid var(--line);border-radius:12px;overflow:hidden}
+.evc img{width:100%;aspect-ratio:2/1;object-fit:cover}
+.evc .b{display:flex;gap:12px;padding:12px}
+.evc .d{width:44px;height:48px;border-radius:8px;background:var(--chip);display:flex;flex-direction:column;align-items:center;justify-content:center;font-weight:800;font-size:18px;line-height:1}
+.evc .d small{font-size:10px;color:#c0392b;font-weight:800;letter-spacing:.06em;margin-bottom:3px}
+.evc .t b{display:block;font-size:15px}.evc .t span{font-size:13px;color:var(--mute)}
+.sum{display:flex;justify-content:space-between;align-items:center;padding:12px 16px 0;font-size:13px;color:var(--mute)}
+.sum .rx{display:flex;align-items:center;gap:6px}
+.sum .em{display:flex}.sum .em i{width:20px;height:20px;border-radius:50%;border:2px solid #fff;display:flex;align-items:center;justify-content:center;font-style:normal;font-size:11px;margin-left:-5px}
+.sum .em i:first-child{margin-left:0}
+.acts{display:flex;margin:10px 8px 0;border-top:1px solid var(--line)}
+.acts button{flex:1;height:44px;display:flex;align-items:center;justify-content:center;gap:7px;font-size:14px;font-weight:600;color:#4a4e4b;border-radius:8px}
+.acts button:active{background:var(--chip)}
+.acts button.liked{color:#d8344b}
+.cmt{display:flex;gap:8px;padding:4px 16px 14px}
+.cmt img{width:28px;height:28px;border-radius:50%;object-fit:cover;flex:none}
+.cmt div{background:var(--chip);border-radius:14px;padding:7px 11px;font-size:13.5px;line-height:1.35}
+.cmt b{display:block;font-size:13px}
+/* ads */
+.spons{font-size:13px;color:var(--mute)}
+.media{width:100%;aspect-ratio:1/1;margin-top:12px;background:#f2f2f2}
+.adbar{display:flex;align-items:center;gap:12px;padding:12px 16px;background:#f6f7f5;border-bottom:1px solid var(--line)}
+.adbar .t{flex:1;min-width:0;line-height:1.3}
+.adbar small{display:block;font-size:12px;color:var(--mute);text-transform:lowercase}
+.adbar b{display:block;font-size:15px;font-weight:700;color:#1a1a1a}
+.cta{flex:none;height:36px;padding:0 16px;border-radius:18px;background:var(--green);color:#fff;font-size:14px;font-weight:700;white-space:nowrap}
+.cta:active{background:var(--green-d)}
+.cta.ghost{background:#fff;color:var(--ink);border:1.5px solid #c9cdc9}
+.post.ad .acts{border-top:0;margin-top:2px}
+/* takeover */
+.post.tko{margin-top:0;border-top:1px solid var(--line)}
+/* carousel */
+.car{display:flex;gap:10px;overflow-x:auto;scroll-snap-type:x mandatory;padding:12px 16px 4px;scrollbar-width:none;scroll-padding:0 16px}
+.car::-webkit-scrollbar{display:none}
+.card{flex:none;width:80%;scroll-snap-align:start;border:1px solid var(--line);border-radius:12px;overflow:hidden;background:#fff}
+.card .media{margin:0}
+.card .cb{display:flex;align-items:center;gap:10px;padding:10px 12px}
+.card .cb .t{flex:1;min-width:0;line-height:1.3}
+.card .cb small{display:block;font-size:12px;color:var(--mute)}
+.card .cb b{display:block;font-size:14px;font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.card .cta{height:32px;padding:0 13px;font-size:13px}
+.cimg{width:100%;aspect-ratio:1/1;object-fit:cover;background:#eef0ed}
+.endc{display:flex;flex-direction:column;justify-content:flex-end;aspect-ratio:1/1;padding:18px;background:linear-gradient(160deg,#0079c1,#004e7c);color:#fff}
+.endc b{font-size:20px;line-height:1.2}.endc span{font-size:13px;opacity:.85;margin-top:6px}
+.cdots{display:flex;justify-content:center;gap:5px;padding:8px 0 2px}
+.cdots i{width:6px;height:6px;border-radius:50%;background:#cfd3cf}.cdots i.on{background:var(--forest)}
+/* spotlight */
+.spot{margin:12px 16px 0;border-radius:14px;overflow:hidden;border:1px solid var(--line)}
+.spot .media{margin:0}
+.spot .loc{display:flex;align-items:center;gap:8px;padding:10px 14px;background:var(--forest);color:#fff;font-size:13px;font-weight:600}
+.spot .loc svg{flex:none}
+.spot .sb2{padding:12px 14px;display:flex;align-items:center;gap:12px}
+.spot .sb2 .t{flex:1;line-height:1.3}
+.spot .sb2 b{display:block;font-size:16px}
+.spot .sb2 span{font-size:13px;color:var(--mute)}
+.recs{display:flex;align-items:center;gap:8px;padding:0 14px 12px;font-size:13px;color:#3a3d3b}
+.recs .fc{display:flex}.recs .fc img{width:22px;height:22px;border-radius:50%;border:2px solid #fff;margin-left:-6px;object-fit:cover}.recs .fc img:first-child{margin-left:0}
+/* lead gen */
+.lgb{display:flex;align-items:center;gap:12px;padding:12px 16px;background:#f6f7f5;border-bottom:1px solid var(--line)}
+.lgb .t{flex:1;line-height:1.3}
+.lgb small{display:block;font-size:12px;color:var(--mute)}
+.lgb b{display:block;font-size:15px}
+/* end */
+.caught{padding:28px 16px 120px;text-align:center;color:var(--mute);font-size:14px;background:var(--bg)}
+.caught b{display:block;color:var(--ink);font-size:16px;margin-bottom:4px}
+/* For Sale & Free */
+.fsf-search{display:flex;gap:10px;padding:10px 16px;background:#fff}
+.fsf-search .in{flex:1;height:40px;border-radius:20px;background:var(--chip);display:flex;align-items:center;gap:8px;padding:0 14px;color:var(--mute);font-size:15px}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:14px 10px;padding:12px 12px 120px;background:#fff}
+.item{min-width:0;cursor:pointer}
+.item .ph2{position:relative;aspect-ratio:1/1;border-radius:10px;overflow:hidden;background:#eef0ed}
+.item .ph2 img{width:100%;height:100%;object-fit:cover}
+.item .pr{font-weight:800;font-size:16px;margin-top:7px}
+.item .pr.free{color:var(--green)}
+.item .nm{font-size:14px;line-height:1.3;color:#222;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.item .ds{font-size:12px;color:var(--mute);margin-top:2px}
+.item.sp .ph2{border-radius:10px}
+.item.sp .flick{position:absolute;inset:0}
+.item .sl{font-size:12px;color:var(--mute);margin-top:7px;display:flex;align-items:center;gap:5px}
+.item .sl i{font-style:normal;width:16px;height:16px;border-radius:50%;background:#f26722;color:#fff;font-size:8px;font-weight:800;display:flex;align-items:center;justify-content:center}
+.item.sp .nm{font-weight:700;margin-top:2px}
+.item.sp .go{margin-top:8px;height:32px;width:100%;border-radius:16px;background:var(--green);color:#fff;font-weight:700;font-size:13px}
+/* tab bar */
+.tabs{flex:none;display:flex;justify-content:space-around;align-items:flex-start;height:84px;padding-top:7px;background:#fff;border-top:1px solid var(--line);position:relative;z-index:20}
+.tab{width:68px;display:flex;flex-direction:column;align-items:center;gap:3px;font-size:10.5px;font-weight:600;color:#6e726f}
+.tab.on{color:var(--forest)}
+.tab .pl{width:40px;height:40px;border-radius:50%;background:var(--forest);display:flex;align-items:center;justify-content:center;margin-top:-2px}
+html[data-os=android] .tabs{height:68px}
+/* sheets */
+.scrim{position:absolute;inset:0;background:rgba(0,0,0,.42);opacity:0;pointer-events:none;transition:opacity .25s;z-index:60}
+.scrim.on{opacity:1;pointer-events:auto}
+.sheet{position:absolute;left:0;right:0;bottom:0;background:#fff;border-radius:18px 18px 0 0;padding:8px 18px 30px;transform:translateY(105%);transition:transform .3s cubic-bezier(.2,.8,.2,1);z-index:61;max-height:92%;overflow:auto}
+.sheet.on{transform:none}
+.grab{width:38px;height:5px;border-radius:3px;background:#d4d7d4;margin:0 auto 14px}
+.lf-h{display:flex;align-items:center;gap:12px;margin-bottom:6px}
+.lf-h b{font-size:18px;display:block}.lf-h span{font-size:13px;color:var(--mute)}
+.lf p{font-size:14px;color:#3a3d3b;line-height:1.45;margin:10px 0 14px}
+.fld{display:block;margin-bottom:12px}
+.fld span{display:block;font-size:12px;font-weight:700;color:var(--mute);margin-bottom:5px}
+.fld input,.fld select{width:100%;height:46px;border:1.5px solid #d4d7d4;border-radius:10px;padding:0 12px;font:15px inherit;font-family:inherit;color:var(--ink);background:#fff;appearance:none;-webkit-appearance:none}
+.fld input:focus,.fld select:focus{outline:none;border-color:var(--green)}
+.segs{display:flex;gap:8px}
+.segs button{flex:1;height:44px;border-radius:10px;border:1.5px solid #d4d7d4;font-weight:700;font-size:14px}
+.segs button.on{border-color:var(--green);background:#eef7f1;color:var(--green-d)}
+.fine{font-size:12px;color:var(--mute);line-height:1.4;margin:4px 0 14px}
+.big{width:100%;height:48px;border-radius:24px;background:var(--green);color:#fff;font-weight:700;font-size:16px}
+.big.ghost{background:#fff;border:1.5px solid #c9cdc9;color:var(--ink);margin-top:10px}
+.done{text-align:center;padding:12px 0 4px}
+.done .ck{width:64px;height:64px;border-radius:50%;background:#eef7f1;display:flex;align-items:center;justify-content:center;margin:0 auto 14px}
+.done b{display:block;font-size:19px;margin-bottom:6px}
+.done p{font-size:14px;color:#3a3d3b;line-height:1.45;margin:0 0 18px}
+.lv{text-align:center}
+.lv b{display:block;font-size:17px;margin:4px 0 6px}
+.lv p{font-size:14px;color:var(--mute);margin:0 0 16px;word-break:break-all}
+.toast{position:absolute;left:50%;bottom:100px;transform:translate(-50%,20px);background:#1d3d2c;color:#fff;padding:10px 16px;border-radius:12px;font-size:14px;font-weight:600;opacity:0;transition:.25s;z-index:70;white-space:nowrap;pointer-events:none}
+.toast.on{opacity:1;transform:translate(-50%,0)}
+.hbar{position:absolute;left:0;right:0;bottom:0;height:22px;display:flex;justify-content:center;align-items:center;z-index:80;pointer-events:none}
+.hbar i{width:134px;height:5px;border-radius:3px;background:#111}
+html[data-os=android] .hbar i{width:108px;height:4px;background:#555}
+.fk-note{padding:8px 16px 6px;border-top:1px solid rgba(255,255,255,.14);margin-top:4px;font:500 11px var(--fk-font,system-ui);color:rgba(255,255,255,.6)}
+/* desktop side note */
+.aside{width:300px;color:#2a3a30;display:none}
+.aside .k{font:700 12px system-ui;letter-spacing:.12em;text-transform:uppercase;color:#4f7a5e}
+.aside h1{font-size:30px;line-height:1.15;margin:10px 0 12px;letter-spacing:-.4px}
+.aside p{font-size:15px;line-height:1.55;color:#44524a;margin:0 0 18px}
+.aside ol{padding:0;margin:0;list-style:none;counter-reset:n}
+.aside li{counter-increment:n;display:flex;align-items:center;gap:10px;padding:8px 0;font-size:14.5px;font-weight:600;cursor:pointer;color:#22322a}
+.aside li::before{content:counter(n);width:24px;height:24px;border-radius:50%;background:#fff;border:1px solid #cfd8d1;display:flex;align-items:center;justify-content:center;font-size:12px;flex:none}
+.aside li:hover{color:var(--green)}
+.aside small{display:block;margin-top:22px;font-size:12px;color:#6e7d73}
+@media (min-width:1100px) and (min-height:700px){.aside{display:block}}
+@media (max-width:760px){
+  .stage{padding:0;display:block}
+  .phone{width:100%;height:100dvh;transform:none!important;border-radius:0!important;padding:0;box-shadow:none;background:#fff}
+  #app{border-radius:0!important}
+  .sb{height:env(safe-area-inset-top,0px);padding:0}
+  .sb>*{display:none!important}
+  .tabs{height:calc(58px + env(safe-area-inset-bottom,0px))}
+  .hbar{display:none}
+}
+</style>
+</head>
+<body>
+<div class="stage">
+<div class="phone"><div id="app">
+  <div class="sb"><span id="clk">9:41</span><div class="isl"></div><div class="r">
+    <svg width="18" height="12" viewBox="0 0 18 12"><rect x="0" y="8" width="3" height="4" rx="1"/><rect x="5" y="5.5" width="3" height="6.5" rx="1"/><rect x="10" y="3" width="3" height="9" rx="1"/><rect x="15" y="0" width="3" height="12" rx="1"/></svg>
+    <svg width="16" height="12" viewBox="0 0 16 12"><path d="M8 2.6c2.2 0 4.2.9 5.7 2.3l1.1-1.1A9.6 9.6 0 0 0 8 1 9.6 9.6 0 0 0 1.2 3.8l1.1 1.1A8 8 0 0 1 8 2.6Zm0 3.2c1.3 0 2.5.5 3.4 1.3l1.1-1.1A6.4 6.4 0 0 0 8 4.2c-1.7 0-3.3.7-4.5 1.8l1.1 1.1c.9-.8 2.1-1.3 3.4-1.3Zm0 3.2c-.5 0-1 .2-1.3.5L8 11l1.3-1.5C9 9.2 8.5 9 8 9Z"/></svg>
+    <svg width="27" height="13" viewBox="0 0 27 13"><rect x=".5" y=".5" width="23" height="12" rx="3.5" fill="none" stroke="currentColor" opacity=".4"/><rect x="2" y="2" width="20" height="9" rx="2"/><path d="M25 4.5v4c.8-.3 1.3-1.1 1.3-2s-.5-1.7-1.3-2Z" opacity=".4"/></svg>
+  </div></div>
+
+  <div class="views">
+    <!-- HOME -->
+    <section class="view on" id="v-home">
+      <div class="top">
+        <div class="hood"><span class="mark"><svg width="18" height="18" viewBox="0 0 24 24"><path d="M4 21V10.5L12 4l8 6.5V21h-5.5v-6h-5v6z" fill="#8ed500"/></svg></span><span>Noe Valley</span><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#1a1a1a" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg></div>
+        <button class="ib" aria-label="Search"><svg width="23" height="23" viewBox="0 0 24 24" fill="none" stroke="#1a1a1a" stroke-width="2" stroke-linecap="round"><circle cx="10.5" cy="10.5" r="6.8"/><path d="m20 20-4.6-4.6"/></svg></button>
+        <button class="ib" aria-label="Messages"><svg width="23" height="23" viewBox="0 0 24 24" fill="none" stroke="#1a1a1a" stroke-width="2" stroke-linejoin="round"><path d="M4 5.5h16v10.5H9.5L5 19.5V16H4z"/></svg><span class="dot">2</span></button>
+      </div>
+      <div class="scroll" id="home-scroll">
+        <div class="compose"><img id="me" alt=""><div class="in">Share something with your neighbors…</div></div>
+        <div class="chips"><span class="chip on">For you</span><span class="chip">Recent</span><span class="chip">Nearby</span><span class="chip">Recommendations</span><span class="chip">Events</span><span class="chip">Safety</span></div>
+        <div id="feed"></div>
+      </div>
+    </section>
+    <!-- FOR SALE & FREE -->
+    <section class="view" id="v-fsf">
+      <div class="top"><div class="ttl">For Sale &amp; Free</div>
+        <button class="ib" aria-label="Saved"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#1a1a1a" stroke-width="2" stroke-linejoin="round"><path d="M12 20s-7-4.4-9-8.6C1.6 8.4 3.5 4.8 7 4.8c2 0 3.4 1.1 5 2.9 1.6-1.8 3-2.9 5-2.9 3.5 0 5.4 3.6 4 6.6-2 4.2-9 8.6-9 8.6Z"/></svg></button>
+        <button class="ib" aria-label="Sell"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#1a1a1a" stroke-width="2" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg></button></div>
+      <div class="scroll" id="fsf-scroll" style="background:#fff">
+        <div class="fsf-search"><div class="in"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#6b6f6c" stroke-width="2.2" stroke-linecap="round"><circle cx="10.5" cy="10.5" r="6.8"/><path d="m20 20-4.6-4.6"/></svg>Search For Sale &amp; Free</div></div>
+        <div class="chips"><span class="chip on">All</span><span class="chip">Free</span><span class="chip">Furniture</span><span class="chip">Home &amp; garden</span><span class="chip">Kids</span><span class="chip">Electronics</span></div>
+        <div class="grid" id="grid"></div>
+      </div>
+    </section>
+  </div>
+
+  <nav class="tabs" id="tabs">
+    <button class="tab on" data-tab="home" onclick="show('home')"><svg width="26" height="26" viewBox="0 0 24 24"><path d="M4 21V10.5L12 4l8 6.5V21h-5.5v-6h-5v6z" fill="currentColor"/></svg>Home</button>
+    <button class="tab" data-tab="fsf" onclick="show('fsf')"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><path d="M3.5 12.2V4.5a1 1 0 0 1 1-1h7.7l8.3 8.3a1 1 0 0 1 0 1.4l-7.3 7.3a1 1 0 0 1-1.4 0z"/><circle cx="8" cy="8" r="1.6" fill="currentColor"/></svg>For Sale</button>
+    <button class="tab" aria-label="Post"><span class="pl"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.6" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg></span></button>
+    <button class="tab" ><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><path d="M6 16.5V11a6 6 0 0 1 12 0v5.5l1.5 2h-15z"/><path d="M10 20.5a2.2 2.2 0 0 0 4 0" stroke-linecap="round"/></svg>Notifications</button>
+    <button class="tab" ><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg>Menu</button>
+  </nav>
+
+  <div class="scrim" id="scrim" onclick="closeSheets()"></div>
+  <div class="sheet" id="lead" data-t="lead-sheet"></div>
+  <div class="sheet" id="leave" data-t="leave-sheet"></div>
+  <div class="toast" id="toast" data-t="toast"></div>
+  <div class="hbar"><i></i></div>
+</div></div>
+<aside class="aside">
+  <div class="k">Concept by Flam</div>
+  <h1>Flicks on Nextdoor</h1>
+  <p>Every Nextdoor ad unit running a live Flick: neighbors switch between products, offers and coverage options right inside the post, and every choice comes back as a signal.</p>
+  <ol id="aside-list"></ol>
+  <small>Advertisers shown are real. Neighbors, posts and counts are invented. Not affiliated with or endorsed by Nextdoor.</small>
+</aside>
+</div>
+
+<script>
+/*KIT*/
+</script>
+<script>
+const U=s=>'https://images.unsplash.com/'+s+(s.includes('?')?'&':'?')+'auto=format&q=70';
+document.getElementById('me').src=U('photo-1500648767791-00dcc994a43e?w=120&h=120&fit=crop&crop=faces');
+const PH={
+ cat:'photo-1514888286974-6c03e2ca1dba?w=900&h=675&fit=crop',
+ lights:'photo-1543589077-47d81606c1bf?w=900&h=450&fit=crop',
+ dog:'photo-1587300003388-59208cc962cb?w=900&h=675&fit=crop',
+ street:'photo-1501183638710-841dd1904471?w=900&h=675&fit=crop',
+ market:'photo-1488459716781-31db52582fe9?w=900&h=675&fit=crop'};
+const AV={
+ priya:'photo-1494790108377-be9c29b29330',marcus:'photo-1507003211169-0a1dd7228f2d',elena:'photo-1438761681033-6461ffad8d80',
+ tom:'photo-1506794778202-cad84cf45f1d',grace:'photo-1544005313-94ddf0286df2',danny:'photo-1500648767791-00dcc994a43e',
+ ruth:'photo-1580489944761-15a19d654956',sam:'photo-1519085360753-af0119f7cbe7',nina:'photo-1534528741775-53994a69daeb'};
+const av=k=>U(AV[k]+'?w=120&h=120&fit=crop&crop=faces');
+const I={
+ more:'<svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><circle cx="5" cy="12" r="1.9"/><circle cx="12" cy="12" r="1.9"/><circle cx="19" cy="12" r="1.9"/></svg>',
+ heart:'<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><path d="M12 20s-7-4.4-9-8.6C1.6 8.4 3.5 4.8 7 4.8c2 0 3.4 1.1 5 2.9 1.6-1.8 3-2.9 5-2.9 3.5 0 5.4 3.6 4 6.6-2 4.2-9 8.6-9 8.6Z"/></svg>',
+ cmt:'<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><path d="M4 5.5h16v10.5H9.5L5 19.5V16H4z"/></svg>',
+ share:'<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 15V4m-4 4 4-4 4 4M5 12.5V19a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-6.5"/></svg>',
+ pin:'<svg width="16" height="16" viewBox="0 0 24 24" fill="#8ed500"><path d="M12 22s7-6.3 7-12a7 7 0 1 0-14 0c0 5.7 7 12 7 12Zm0-9a3 3 0 1 1 0-6 3 3 0 0 1 0 6Z"/></svg>',
+ check:'<svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="#1d7f46" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12.5 4.5 4.5L19 7.5"/></svg>'};
+/* advertisers */
+const ADV={
+ lovesac:{name:'Lovesac',dom:'lovesac.com',col:'#111',ini:'L',url:'https://www.lovesac.com/sactionals'},
+ chevy:{name:'Chevrolet',dom:'chevrolet.com',col:'#1b1b1b',ini:'C',url:'https://www.chevrolet.com/trucks/silverado/1500'},
+ bmo:{name:'BMO',dom:'bmo.com',col:'#0079c1',ini:'BMO',url:'https://www.bmo.com/en-us/main/personal/'},
+ barkbox:{name:'BarkBox',dom:'barkbox.com',col:'#0a7bc4',ini:'B',url:'https://www.barkbox.com/'},
+ geico:{name:'GEICO',dom:'geico.com',col:'#154ba0',ini:'G',url:'https://www.geico.com/auto-insurance/'},
+ lc:{name:'Little Caesars',dom:'littlecaesars.com',col:'#f26722',ini:'LC',url:'https://littlecaesars.com/en-us/'}};
+const logo=k=>{const a=ADV[k];return `<span class="lg" style="background:${a.col}"><img src="https://www.google.com/s2/favicons?domain=${a.dom}&sz=128" alt="" onerror="this.remove()" onload="if(this.naturalWidth<40)this.remove()">${a.ini.length>2?'<small style=font-size:11px>'+a.ini+'</small>':a.ini}</span>`};
+const acts=(n,c)=>`<div class="sum"><span class="rx"><span class="em"><i style="background:#fde3e7">❤️</i><i style="background:#fff3d6">👍</i><i style="background:#fff3d6">😂</i></span>${n}</span><span>${c}</span></div>
+ <div class="acts"><button onclick="like(this)">${I.heart}Like</button><button>${I.cmt}Comment</button><button>${I.share}Share</button></div>`;
+const head=(a,n,meta)=>`<div class="ph"><img class="av" src="${av(a)}" alt=""><div class="who"><b>${n}</b><span>${meta}</span></div><button class="more">${I.more}</button></div>`;
+const adHead=k=>`<div class="ph">${logo(k)}<div class="who"><b>${ADV[k].name}</b><span class="spons">Sponsored</span></div><button class="more">${I.more}</button></div>`;
+const cmt=(a,n,t)=>`<div class="cmt"><img src="${av(a)}" alt=""><div><b>${n}</b>${t}</div></div>`;
+const F=(slot,brand)=>`<div class="media flick" data-slot="${slot}" data-brand="${brand}" data-cta="native"></div>`;
+
+const FEED=[
+ /* 1 Takeover */
+ `<article class="post ad tko" data-flow="takeover">${adHead('lovesac')}
+  <div class="pt">Hosting the block this season, Noe Valley? Sactionals rearrange for every guest who drops by, and the covers go straight in the wash.</div>
+  ${F('tko-lovesac','lovesac')}
+  <div class="adbar"><div class="t"><small>lovesac.com</small><b>Sactionals for every gathering</b></div><button class="cta" data-t="tko-cta" onclick="native('tko-lovesac')">Shop now</button></div>
+  ${acts(186,'24 comments')}</article>`,
+ `<article class="post">${head('priya','Priya Raman','Noe Valley · 42 min')}
+  <span class="tagl alert">Lost &amp; Found</span>
+  <div class="pt">Has anyone seen Mochi? Black and white tuxedo cat, very friendly, slipped out near <b>24th &amp; Sanchez</b> last night. She answers to her name and loves treats. Please check garages and sheds 🙏</div>
+  <img class="pimg" src="${U(PH.cat)}" alt="Tuxedo cat">
+  ${acts(58,'31 comments')}${cmt('tom','Tom Whitaker','Saw a black and white cat on Duncan around 7am, heading toward the park. Will keep an eye out!')}</article>`,
+ `<article class="post">${head('marcus','Marcus Bell','Glen Park · 1 hr')}
+  <span class="tagl">Recommendations</span>
+  <div class="pt">Looking for a reliable electrician for an older Victorian. A few outlets keep tripping and I'd like a proper panel check before the holidays. Who have you used and loved?</div>
+  ${acts(14,'38 comments')}${cmt('elena','Elena Ortiz','Rafael at Bright Line Electric did our whole panel. Fair price and super tidy.')}</article>`,
+ /* 2 Video ad */
+ `<article class="post ad" data-flow="video">${adHead('chevy')}
+  <div class="pt">Weekend projects, hardware store runs, the soccer carpool. Pick the Silverado that fits how your block actually lives.</div>
+  ${F('vid-silverado','silverado')}
+  <div class="adbar"><div class="t"><small>chevrolet.com</small><b>2026 Silverado 1500</b></div><button class="cta" data-t="vid-cta" onclick="native('vid-silverado')">Build yours</button></div>
+  ${acts(97,'12 comments')}</article>`,
+ `<article class="post">${head('grace','Grace Liu','Dolores Heights · 3 hr')}
+  <span class="tagl ev">Event</span>
+  <div class="pt">Our street is doing a holiday lights walk again! Hot cocoa at the corner of 22nd and Noe, kids welcome, dogs very welcome.</div>
+  <div class="evc"><img src="${U(PH.lights)}" alt="Holiday lights on houses"><div class="b"><div class="d"><small>DEC</small>6</div><div class="t"><b>Holiday Lights Walk</b><span>Sat 5:30 PM · 22nd &amp; Noe · 64 going</span></div></div></div>
+  ${acts(121,'19 comments')}</article>`,
+ /* 3 Carousel */
+ `<article class="post ad" data-flow="carousel">${adHead('bmo')}
+  <div class="pt">Planning a remodel, a new car or a little boat for the bay? Pick the loan that fits your plans.</div>
+  <div class="car" id="car" onscroll="carDots()">
+   <div class="card">${F('car-bmo','bmo')}<div class="cb"><div class="t"><small>bmo.com</small><b>Choose your loan</b></div><button class="cta" data-t="car-cta" onclick="native('car-bmo')">Learn more</button></div></div>
+   <div class="card"><img class="cimg" src="${U('photo-1570129477492-45c003edd2be?w=600&h=600&fit=crop')}" alt="Home"><div class="cb"><div class="t"><small>bmo.com</small><b>Home equity options</b></div><button class="cta" onclick="openUrl(ADV.bmo.url)">Learn more</button></div></div>
+   <div class="card"><div class="endc"><b>Rates built for your next move</b><span>See BMO personal loans</span></div><div class="cb"><div class="t"><small>bmo.com</small><b>Personal banking</b></div><button class="cta" onclick="openUrl(ADV.bmo.url)">Learn more</button></div></div>
+  </div><div class="cdots" id="cdots"><i class="on"></i><i></i><i></i></div>
+  ${acts(42,'6 comments')}</article>`,
+ `<article class="post">${head('ruth','Ruth Adler','Noe Valley · 4 hr')}
+  <div class="pt">The Saturday farmers market had the best persimmons I've seen all year. Get there before 10 if you want the good ones!</div>
+  <img class="pimg" src="${U(PH.market)}" alt="Farmers market produce">
+  ${acts(73,'9 comments')}</article>`,
+ /* 4 Spotlight */
+ `<article class="post ad" data-flow="spotlight">${adHead('barkbox')}
+  <div class="pt">Noe Valley pups have spoken: more squeakers, more chew. Build this month's box around your dog.</div>
+  <div class="spot"><div class="loc">${I.pin}Made for dogs in Noe Valley</div>
+   ${F('spot-barkbox','barkbox')}
+   <div class="sb2"><div class="t"><b>Toys and treats picked for your dog</b><span>barkbox.com · monthly box</span></div><button class="cta" data-t="spot-cta" onclick="native('spot-barkbox')">Claim offer</button></div>
+   <div class="recs"><span class="fc"><img src="${av('nina')}" alt=""><img src="${av('sam')}" alt=""><img src="${av('grace')}" alt=""></span>Nina, Sam and 41 neighbors follow BarkBox</div></div>
+  ${acts(64,'11 comments')}</article>`,
+ `<article class="post">${head('danny','Danny Okafor','Castro · 5 hr')}
+  <span class="tagl alert">Lost &amp; Found</span>
+  <div class="pt">Found this good boy near Collingwood Park, no tag but very well behaved. He's safe at my place, DM me if he's yours!</div>
+  <img class="pimg" src="${U(PH.dog)}" alt="Golden dog">
+  ${acts(212,'47 comments')}${cmt('priya','Priya Raman','He looks like Biscuit from Hill St! Tagging his family now.')}</article>`,
+ /* 5 Lead gen */
+ `<article class="post ad" data-flow="leadgen">${adHead('geico')}
+  <div class="pt">Life happens, neighbor. Whether it's the car, the house or your rental, get a quote matched to what you need covered.</div>
+  ${F('lead-geico','geico')}
+  <div class="lgb"><div class="t"><small>geico.com</small><b>Get a fast quote</b></div><button class="cta" data-t="lead-cta" onclick="openLead()">Get quote</button></div>
+  ${acts(38,'5 comments')}</article>`,
+ `<article class="post">${head('elena','Elena Ortiz','Bernal Heights · 7 hr')}
+  <div class="pt">Finally finished our living room refresh. Huge thanks to everyone who recommended a painter last month!</div>
+  <img class="pimg" src="${U(PH.street)}" alt="Living room">
+  ${acts(301,'22 comments')}</article>`,
+ `<div class="caught"><b>You're all caught up</b>Check back later for new posts from Noe Valley</div>`];
+document.getElementById('feed').innerHTML=FEED.join('');
+
+/* For Sale & Free */
+const IT=[
+ ['photo-1555041469-a586c61ea9bc','$180','Green velvet sofa, 3 seat','0.4 mi · Noe Valley'],
+ ['photo-1485965120184-e220f721d03e','$95','Road bike, 54 cm, just tuned up','0.7 mi · Glen Park'],
+ null,
+ ['photo-1501004318641-b39e6451bec6','FREE','Monstera and pothos cuttings','0.2 mi · Noe Valley'],
+ ['photo-1592078615290-033ee584e267','$60','Black shell dining chair','1.1 mi · Castro'],
+ ['photo-1517705008128-361805f42e86','$45','White shell chair and side table','0.5 mi · Noe Valley'],
+ ['photo-1532372320572-cda25653a26d','$70','Wooden console with shelf','0.9 mi · Bernal Heights'],
+ ['photo-1524758631624-e2822e304c36','$120','Black arc floor lamp','1.4 mi · Mission'],
+ ['photo-1512820790803-83ca734da794','FREE','Box of business books','0.3 mi · Noe Valley']];
+document.getElementById('grid').innerHTML=IT.map(x=>x?`<div class="item"><div class="ph2"><img src="${U(x[0]+'?w=420&h=420&fit=crop')}" alt="" loading="lazy"></div><div class="pr ${x[1]==='FREE'?'free':''}">${x[1]}</div><div class="nm">${x[2]}</div><div class="ds">${x[3]}</div></div>`
+ :`<div class="item sp" data-flow="fsf"><div class="ph2">${F('fsf-lc','lc').replace('class="media flick"','class="flick"')}</div><div class="sl"><i>LC</i>Little Caesars · Sponsored</div><div class="nm">Pizza night deals from your local Little Caesars</div><button class="go" data-t="fsf-cta" onclick="native('fsf-lc')">Order now</button></div>`).join('');
+
+/* app behaviour */
+const $=id=>document.getElementById(id);
+let cur='home';
+function show(v){cur=v;document.querySelectorAll('.view').forEach(x=>x.classList.toggle('on',x.id==='v-'+v));
+ document.querySelectorAll('.tab[data-tab]').forEach(t=>t.classList.toggle('on',t.dataset.tab===v));
+ closeSheets();setTimeout(()=>{FlicksKit.scan();FlicksKit.redock&&FlicksKit.redock()},30)}
+function like(b){b.classList.toggle('liked');b.querySelector('svg').setAttribute('fill',b.classList.contains('liked')?'#d8344b':'none')}
+function carDots(){const c=$('car'),i=Math.round(c.scrollLeft/(c.firstElementChild.offsetWidth+10));[...$('cdots').children].forEach((d,k)=>d.classList.toggle('on',k===i))}
+let tt;function toastMsg(m){const t=$('toast');t.textContent=m;t.classList.add('on');clearTimeout(tt);tt=setTimeout(()=>t.classList.remove('on'),2200)}
+const app=$('app'),NAV=getComputedStyle(app).getPropertyValue('--fk-nav');
+function dock(px){app.style.setProperty('--fk-nav',px);FlicksKit.redock&&FlicksKit.redock()}
+function openSheet(id){$('scrim').classList.add('on');$(id).classList.add('on');requestAnimationFrame(()=>dock(($(id).offsetHeight+6)+'px'))}
+function closeSheets(){const was=document.querySelector('.sheet.on');$('scrim').classList.remove('on');document.querySelectorAll('.sheet').forEach(s=>s.classList.remove('on'));if(was)dock($('tabs').offsetHeight+'px')}
+
+/* links: the Flick's own click-out URL for the variant on screen, otherwise the advertiser's product page */
+const SLOT_ADV={'tko-lovesac':'lovesac','vid-silverado':'chevy','car-bmo':'bmo','spot-barkbox':'barkbox','lead-geico':'geico','fsf-lc':'lc'};
+const clean=u=>{u=String(u||'').replace(/\$\{[^}]*\}/g,'');const i=u.search(/https?:\/\//);if(i<0)return '';u=u.slice(i);try{if(new URL(u).pathname.length<2)return ''}catch(e){return ''}return u};
+let pend=null;
+function openUrl(u){const w=window.open(u,'_blank');if(w){try{w.opener=null}catch(e){}return}leave(u)}
+function leave(u){$('leave').innerHTML=`<div class="grab"></div><div class="lv"><b>Continue to ${new URL(u).hostname.replace(/^www\./,'')}</b><p>${u}</p><button class="big" onclick="window.open('${u}','_blank');closeSheets()">Open</button><button class="big ghost" onclick="closeSheets()">Stay on Nextdoor</button></div>`;openSheet('leave')}
+function native(slot){
+ const fb=ADV[SLOT_ADV[slot]].url,s=FlicksKit.slots[slot];
+ if(!s||!s.ready||FlicksKit.stub){openUrl(fb);return}
+ const w=window.open('about:blank','_blank');
+ if(!w){pend={slot,w:null,fb};FlicksKit.pressCta(slot);setTimeout(()=>{if(pend&&pend.slot===slot){pend=null;leave(fb)}},900);return}
+ try{w.opener=null}catch(e){}
+ pend={slot,w,fb};FlicksKit.pressCta(slot);
+ setTimeout(()=>{if(pend&&pend.slot===slot){try{w.location.href=fb}catch(e){}pend=null}},900)}
+function onCta(slot,url){
+ const u=clean(url)||ADV[SLOT_ADV[slot]||'lovesac'].url;
+ if(pend&&pend.slot===slot){const p=pend;pend=null;if(p.w){try{p.w.location.href=u}catch(e){}}else leave(u);return}
+ openUrl(u)}
+
+/* GEICO lead form, prefilled with the neighbor's profile; coverage follows the Flick variant on screen */
+const COVER=['Car','Home','Renters'];
+function openLead(){
+ const v=(FlicksKit.slots['lead-geico']||{}).variant||0;
+ $('lead').innerHTML=`<div class="grab"></div><div class="lf"><div class="lf-h">${logo('geico')}<div><b>Get a GEICO quote</b><span>Sponsored · geico.com</span></div></div>
+ <p>GEICO will use these details to send your quote. Review them before you submit.</p>
+ <div class="fld"><span>Coverage</span><div class="segs" id="segs">${COVER.map((c,i)=>`<button class="${i===v?'on':''}" onclick="seg(this)">${c}</button>`).join('')}</div></div>
+ <label class="fld"><span>Full name</span><input value="Jordan Ellis" autocomplete="off"></label>
+ <label class="fld"><span>Email</span><input value="jordan.ellis@example.com" type="email" autocomplete="off"></label>
+ <label class="fld"><span>ZIP code</span><input value="94114" inputmode="numeric" autocomplete="off"></label>
+ <div class="fine">By tapping Submit, you agree to share this information with GEICO, subject to their privacy policy.</div>
+ <button class="big" data-t="lead-submit" onclick="leadDone()">Submit</button></div>`;openSheet('lead')}
+function seg(b){[...b.parentNode.children].forEach(x=>x.classList.toggle('on',x===b))}
+function leadDone(){const c=(document.querySelector('#segs .on')||{}).textContent||'Car';
+ $('lead').innerHTML=`<div class="grab"></div><div class="done"><div class="ck">${I.check}</div><b>Thanks, Jordan</b><p>GEICO has your ${c.toLowerCase()} quote request and will be in touch at jordan.ellis@example.com.</p>
+ <button class="big" onclick="openUrl('https://www.geico.com/${c==='Car'?'auto':c==='Home'?'homeowners':'renters'}-insurance/')">Visit geico.com</button><button class="big ghost" data-t="lead-close" onclick="closeSheets()">Back to feed</button></div>`;
+ requestAnimationFrame(()=>dock(($('lead').offsetHeight+6)+'px'))}
+if(FlicksKit.os==='android')$('clk').textContent='12:30';
+
+/* Flicks */
+const BR=/*BRANDS*/;
+const top0=()=>{show('home');$('home-scroll').scrollTop=0};
+FlicksKit.init({root:'#app',maxLive:3,brands:BR,
+ flows:[
+  {id:'takeover',label:'Takeover',slot:'tko-lovesac',go:top0,},
+  {id:'video',label:'Video ad in Newsfeed',slot:'vid-silverado',go(){show('home')}},
+  {id:'carousel',label:'Carousel ad',slot:'car-bmo',go(){show('home');$('car').scrollLeft=0}},
+  {id:'spotlight',label:'Spotlight ad',slot:'spot-barkbox',go(){show('home')}},
+  {id:'leadgen',label:'Lead gen ad',slot:'lead-geico',go(){show('home')},
+   steps:[{name:'Get quote opens the lead form',tap:'[data-t=lead-cta]',expect:'#lead.on'},{name:'Submit confirms',tap:'[data-t=lead-submit]',expect:'.done'},{name:'Back to feed closes the form',tap:'[data-t=lead-close]',gone:'#lead.on'}]},
+  {id:'fsf',label:'For Sale & Free',slot:'fsf-lc',go(){show('fsf');$('fsf-scroll').scrollTop=0}}
+ ],
+ onCta(slot,url){onCta(slot,url)}
+});
+document.querySelector('.fk-menu').insertAdjacentHTML('beforeend','<div class="fk-note">Concept by Flam</div>');
+$('aside-list').innerHTML=FlicksKit.flows.map(f=>`<li onclick="FlicksKit.go('${f.id}')">${f.label.replace('&','&amp;')}</li>`).join('');
+dock($('tabs').offsetHeight+'px');
+function fitPhone(){const ph=document.querySelector('.phone');if(innerWidth<=760){ph.style.transform='';return}const s=Math.min(1,(innerHeight-24)/866,(innerWidth-24)/412);ph.style.transform=s<1?`scale(${s})`:''}
+fitPhone();addEventListener('resize',()=>{fitPhone();dock($('tabs').offsetHeight+'px')});
+</script>
+</body></html>
