@@ -657,7 +657,6 @@ FlicksKit.init({root:'#app',maxLive:4,brands:BR,
  ],
  onCta(slot,url){onCta(slot,url)}
 });
-document.querySelector('.fk-menu').insertAdjacentHTML('beforeend','<div class="fk-note">Concept by Flam</div>');
 $('aside-list').innerHTML=FlicksKit.flows.map(f=>`<li onclick="FlicksKit.go('${f.id}')">${f.label.replace('&','&amp;')}</li>`).join('');
 dock($('tabs').offsetHeight+'px');
 function fitPhone(){const ph=document.querySelector('.phone');if(innerWidth<=760){ph.style.transform='';return}const s=Math.min(1,(innerHeight-24)/866,(innerWidth-24)/412);ph.style.transform=s<1?`scale(${s})`:''}
